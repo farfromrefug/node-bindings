@@ -35,6 +35,8 @@ var fs = require('fs')
         , [ 'module_root', 'compiled', 'version', 'platform', 'arch', 'bindings' ]
           // node-pre-gyp path ./lib/binding/{node_abi}-{platform}-{arch}
         , [ 'module_root', 'lib', 'binding', 'nodePreGyp', 'bindings' ]
+          // node-pre-gyp path ./lib/binding/{node_abi}-{platform}-{arch}
+        , [ 'module_root', 'lib', 'binding', 'Release', 'nodePreGyp', 'bindings' ]
         ]
     }
 

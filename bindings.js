@@ -15,6 +15,7 @@ var fs = require('fs')
       , platform: process.platform
       , arch: process.arch
       , nodePreGyp: 'node-v' + process.versions.modules + '-' + process.platform + '-' + process.arch
+      , electronPreGyp: 'electron-v' + process.versions['electron'] + '-' + process.platform + '-' + process.arch
       , version: process.versions.node
       , bindings: 'bindings.node'
       , try: [
@@ -40,6 +41,14 @@ var fs = require('fs')
         ]
     }
 
+  if (process.versions['electron']) {
+     //if we see electron first, let's look for it first.
+     defaults.electronPreGyp = 'electron-v' + process.versions['electron'].split('.').slice(0,2).join('.') + '-' + process.platform + '-' + process.arch
+      // electron node-pre-gyp path ./lib/binding/{node_abi}-{platform}-{arch}
+      defaults.try.unshift([ 'module_root', 'lib', 'binding', 'electronPreGyp', 'bindings' ]);
+      // electron node-pre-gyp path ./lib/binding/{node_abi}-{platform}-{arch}
+      defaults.try.unshift([ 'module_root', 'lib', 'binding', 'Release', 'electronPreGyp', 'bindings' ]);
+  }
 /**
  * The main `bindings()` function loads the compiled bindings for a given module.
  * It uses V8's Error API to determine the parent filename that this function is
